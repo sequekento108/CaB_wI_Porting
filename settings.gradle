@@ -1,0 +1,50 @@
+pluginManagement {
+    repositories {
+        mavenLocal()
+        maven {
+            url 'https://ldtteam.jfrog.io/artifactory/communi-suggestu-maven'
+            name 'Communi-Suggestu Maven'
+        }
+        maven {
+            url 'https://ldtteam.jfrog.io/artifactory/tableau'
+            name 'Tableau Maven'
+        }
+        maven {
+            name = 'Fabric'
+            url = 'https://maven.fabricmc.net/'
+        }
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+plugins {
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.8.0'
+    id 'com.communi-suggestu.placitum' version '0.0.82'
+}
+
+rootProject.name = "chisels-and-bits"
+
+platforms {
+    common(':api')
+    core(':core')
+    fabric(':fabric')
+    neoforge(':neoforge')
+
+    plugin(':create')
+
+    defaults {
+        java {
+            version = 21
+        }
+        project {
+            owner = "chisels-and-bits"
+        }
+        minecraft {
+            version = "1.21.1"
+        }
+        parchment {
+            version = "2024.11.13"
+        }
+    }
+}

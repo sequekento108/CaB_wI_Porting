@@ -1,0 +1,23 @@
+plugins {
+    id 'com.ldtteam.tableau.common' version '0.0.80'
+}
+
+tableau {
+    project {
+        group = "mod.chiselsandbits"
+        publisher = "chisels-and-bits"
+        versioning {
+            version = environmentVariable("VERSION")
+                    .orElse(property("local.version"))
+            suffix = ""
+        }
+    }
+}
+
+allprojects {Project project ->
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(project.getProperties().get("java.version")))
+        }
+    }
+}

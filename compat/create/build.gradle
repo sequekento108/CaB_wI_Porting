@@ -1,0 +1,3 @@
+project.dependencies.implementation fg.deobf("com.simibubi.create:create-${create_minecraft_version}:${create_version}:slim") { transitive = false }
+project.dependencies.implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${flywheel_minecraft_version}:${flywheel_version}")
+project.dependencies.implementation fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")

@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "b": {
+      "tag": "minecraft:logs"
+    },
+    "c": {
+      "tag": "chiselsandbits:chisel"
+    },
+    "n": {
+      "tag": "c:nuggets/iron"
+    },
+    "p": {
+      "tag": "minecraft:planks"
+    },
+    "s": {
+      "tag": "minecraft:wooden_slabs"
+    }
+  },
+  "pattern": [
+    "scs",
+    "nbn",
+    "ppp"
+  ],
+  "result": {
+    "count": 1,
+    "id": "chiselsandbits:modification_table"
+  }
+}

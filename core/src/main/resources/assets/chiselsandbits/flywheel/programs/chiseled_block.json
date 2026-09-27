@@ -1,0 +1,4 @@
+{
+  "vertex": "chiselsandbits:chiseled_block.vert",
+  "fragment": "flywheel:block.frag"
+}

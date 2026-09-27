@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "c": {
+      "tag": "chiselsandbits:chisel"
+    },
+    "g": {
+      "tag": "c:glass_blocks"
+    },
+    "i": {
+      "tag": "c:ingots/iron"
+    },
+    "l": {
+      "tag": "minecraft:logs"
+    }
+  },
+  "pattern": [
+    "igi",
+    "glg",
+    "ici"
+  ],
+  "result": {
+    "count": 1,
+    "id": "chiselsandbits:bit_storage"
+  }
+}
