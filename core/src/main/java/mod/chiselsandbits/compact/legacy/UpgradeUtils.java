@@ -41,18 +41,26 @@ public class UpgradeUtils {
             if (chiselModeName.isEmpty()) {
                 chiselModeName = tag.getString("chiselMode");
             }
-            try {
-                final Optional<IChiselMode> registryMode = IChiselMode.getRegistry().get(ResourceLocation.tryParse(chiselModeName));
-                if (registryMode.isPresent()) {
-                    ModItems.ITEM_BLOCK_BIT.get().setMode(stack, registryMode.get());
-                } else {
-                    LOGGER.error("Unknown chisel mode: {}", chiselModeName);
+            IChiselMode mode = null;
+            if (!chiselModeName.isEmpty()) {
+                try {
+                    final ResourceLocation modeId = ResourceLocation.tryParse(chiselModeName);
+                    if (modeId != null) {
+                        mode = IChiselMode.getRegistry().get(modeId).orElse(null);
+                    }
+                }
+                catch (IllegalArgumentException illegalArgumentException) {
+                    mode = null;
                 }
             }
-            catch (IllegalArgumentException illegalArgumentException) {
-                LOGGER.error("An ItemStack got loaded with a name that is not a valid chisel mode: {}", chiselModeName);
-                ModItems.ITEM_BLOCK_BIT.get().setMode(stack, IChiselMode.getDefaultMode());
+            if (mode == null) {
+                // Unknown (or missing) modes from older versions must still migrate the stack to the
+                // default mode. Without this the stack never gains the mode component and every
+                // getMode() call logs again - millions of times per session on render-thread hot paths.
+                LOGGER.warn("Bit ItemStack has unknown chisel mode '{}', defaulting.", chiselModeName);
+                mode = IChiselMode.getDefaultMode();
             }
+            ModItems.ITEM_BLOCK_BIT.get().setMode(stack, mode);
         }
 
         if (!stack.has(ModDataComponentTypes.BLOCK_INFORMATION.get()) && stack.has(DataComponents.CUSTOM_DATA)) {

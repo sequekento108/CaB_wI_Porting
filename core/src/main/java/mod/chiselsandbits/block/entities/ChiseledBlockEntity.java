@@ -201,7 +201,11 @@ public class ChiseledBlockEntity extends BlockEntity implements
             return;
         }
 
-        this.deserializationQueue.forEach(nbt -> deserializeNBT(nbt, level.registryAccess()));
+        // Drain the queue: entries must not be retained (every queued tag is a full
+        // copy of this block entity's NBT) nor deserialized twice.
+        final List<CompoundTag> queued = Lists.newArrayList(this.deserializationQueue);
+        this.deserializationQueue.clear();
+        queued.forEach(nbt -> deserializeNBT(nbt, level.registryAccess()));
     }
 
     @Override
@@ -331,8 +335,10 @@ public class ChiseledBlockEntity extends BlockEntity implements
         {
             this.deserializeNBT(nbt, lookup);
         }
-
-        this.queueDeserializeNbt(nbt);
+        else
+        {
+            this.queueDeserializeNbt(nbt);
+        }
     }
 
     private void queueDeserializeNbt(CompoundTag nbt)
